@@ -2,11 +2,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ComputerPlayer extends Player {
-    private Difficultly difficultly;
+    private Difficulty difficulty;
     private Random random;
 
-    public Difficultly getDifficultly() {
-        return difficultly;
+    public ComputerPlayer(String name, Difficulty difficulty) {
+        this.name = name;
+        this.difficulty = difficulty;
+        this.random = new Random(System.currentTimeMillis());
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
     private void randomMove(Board board, int howMany) {
@@ -49,14 +55,15 @@ public class ComputerPlayer extends Player {
         }
     }
 
+    @Override
     public void move(Board board) throws NoMovesException {
         if(board.getTotalStones() == 0) {
             throw new NoMovesException();
         }
-        if(difficultly == Difficultly.Easy) {
+        if(difficulty == Difficulty.Easy) {
            randomMove(board, 1);
        }
-       else if (difficultly == Difficultly.Medium) {
+       else if (difficulty == Difficulty.Medium) {
             if(random.nextBoolean()) {
                 randomMove(board, 0);
             }
@@ -64,9 +71,12 @@ public class ComputerPlayer extends Player {
                 cleverMove(board);
             }
        }
+       else { //difficulty == Difficulty.Hard
+           cleverMove(board);
+        }
     }
 }
 
-enum Difficultly {
+enum Difficulty {
     Easy, Medium, Hard;
 }

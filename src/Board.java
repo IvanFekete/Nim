@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Board {
     public int getNumberOfPiles() {
         return numberOfPiles;
@@ -24,6 +26,10 @@ public class Board {
     public Board(int numberOfPiles) {
         this.numberOfPiles = numberOfPiles;
         this.stones = new int[numberOfPiles];
+        Random random = new Random(System.currentTimeMillis());
+        for(int i = 0; i < this.numberOfPiles; i++) {
+            this.stones[i] = 1 + random.nextInt(1000);
+        }
         updateTotalValues();
     }
 

@@ -4,5 +4,9 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public void move(Board board) throws NoMovesException {
+
+    }
 }
 
